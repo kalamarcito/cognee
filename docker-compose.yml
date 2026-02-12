@@ -22,7 +22,7 @@ services:
       - "host.docker.internal:host-gateway"
     ports:
       - 8000:8000
-      - 5678:5678 # Debugger port
+      # - 5678:5678 # Debugger port
     deploy:
       resources:
         limits:
@@ -59,7 +59,7 @@ services:
       - "host.docker.internal:host-gateway"
     ports:
       - "8000:8000" # MCP port
-      - "5678:5678" # MCP debugger port
+      # - "5678:5678" # MCP debugger port
     deploy:
       resources:
         limits:

@@ -26,11 +26,14 @@ services:
     deploy:
       resources:
         limits:
+          # cpus: "4.0"
           memory: 8GB
 
   # Cognee MCP Server - Model Context Protocol server for IDE integration
   cognee-mcp:
     container_name: cognee-mcp
+    # profiles:
+    #   - mcp
     networks:
       - cognee-network
     build:
@@ -61,7 +64,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "2.0"
+          # cpus: "2.0"
           memory: 4GB
 
   # NOTE: Frontend is a work in progress and supports minimum amount of features required to be functional.
@@ -71,6 +74,8 @@ services:
     restart: always
     environment:
       - NEXT_PUBLIC_BACKEND_API_URL=${NEXT_PUBLIC_BACKEND_API_URL:-http://localhost:8000}
+    # profiles:
+    #     - ui
     build:
       context: ./cognee-frontend
       dockerfile: Dockerfile
@@ -87,6 +92,8 @@ services:
     image: neo4j:latest
     container_name: neo4j
     restart: always
+    # profiles:
+    #   - neo4j
     ports:
       - 7474:7474
       - 7687:7687
@@ -100,8 +107,8 @@ services:
     image: chromadb/chroma:0.6.3
     container_name: chromadb
     restart: always
-    profiles:
-      - chromadb
+    # profiles:
+    #  - chromadb
     environment:
       - IS_PERSISTENT=TRUE
       - CHROMA_SERVER_AUTH_CREDENTIALS=${VECTOR_DB_KEY}
@@ -119,8 +126,8 @@ services:
     image: pgvector/pgvector:pg17
     container_name: postgres
     restart: always
-    profiles:
-      - postgres
+    # profiles:
+    #   - postgres
     environment:
       POSTGRES_USER: cognee
       POSTGRES_PASSWORD: cognee
@@ -134,6 +141,8 @@ services:
   redis:
     image: redis:7-alpine
     container_name: redis
+    # profiles:
+    #   - redis
     ports:
       - "6379:6379"
     networks:

@@ -31,8 +31,6 @@ services:
   # Cognee MCP Server - Model Context Protocol server for IDE integration
   cognee-mcp:
     container_name: cognee-mcp
-    profiles:
-      - mcp
     networks:
       - cognee-network
     build:
@@ -73,8 +71,6 @@ services:
     restart: always
     environment:
       - NEXT_PUBLIC_BACKEND_API_URL=${NEXT_PUBLIC_BACKEND_API_URL:-http://localhost:8000}
-    profiles:
-        - ui
     build:
       context: ./cognee-frontend
       dockerfile: Dockerfile
@@ -91,8 +87,6 @@ services:
     image: neo4j:latest
     container_name: neo4j
     restart: always
-    profiles:
-      - neo4j
     ports:
       - 7474:7474
       - 7687:7687
@@ -140,8 +134,6 @@ services:
   redis:
     image: redis:7-alpine
     container_name: redis
-    profiles:
-      - redis
     ports:
       - "6379:6379"
     networks:
